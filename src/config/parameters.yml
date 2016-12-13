@@ -1,0 +1,7 @@
+database:
+  mongo:
+    host: "188.166.231.145"
+    port: "27017"
+    db:   "beers_app"
+    username: "beers_app"
+    password: "testing"

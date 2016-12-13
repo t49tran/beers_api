@@ -1,0 +1,7 @@
+database:
+  mongo:
+    host: "DATABASE_HOST"
+    port: "DATABASE_PORT"
+    db:   "DATABASE_SCHEMA"
+    username: "USERNAME"
+    password: "PASSWORD"
