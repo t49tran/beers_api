@@ -1,4 +1,4 @@
-import MongoDb from "../config/database_mongo";
+import {MongoDb} from "../config/database_mongo";
 import Promise from "bluebird";
 
 class BaseModel {
@@ -17,6 +17,9 @@ class BaseModel {
         let db = await MongoDb();
         let collection = Promise.promisifyAll(db.collection(this.collection_name));
 
+        /**
+         * Text index search
+         */
         let query = {
             "$text": {
                 "$search": search_str
@@ -26,7 +29,7 @@ class BaseModel {
         options = options || {};
 
         let collection_cursor = this.pagination(collection.find(query),options);
-        collection_cursor = this.sort(collection.find(query),options);
+        collection_cursor = this.sort(collection_cursor,options);
 
         let data_cursor = Promise.promisifyAll(collection_cursor);
 
@@ -47,7 +50,19 @@ class BaseModel {
         return data_cursor.toArray();
     }
 
-    pagination(collection_cursor,options){
+    async findAll(options = null){
+        let db = await MongoDb();
+        let collection = Promise.promisifyAll(db.collection(this.collection_name));
+
+        options = options || {};
+
+        let collection_cursor = this.sort(collection.find({}),options);
+        let data_cursor = Promise.promisifyAll(collection_cursor);
+
+        return data_cursor.toArray();
+    }
+
+    pagination(collection_cursor,options) {
         let page = options.page || 1;
         let per_page = options.per_page || 20;
         let skip = (page - 1 ) * per_page;
@@ -66,9 +81,10 @@ class BaseModel {
 
         sort_query[options.sort] = (options.sort_order === 'ASC') ? 1 : -1;
 
+        console.log(sort_query);
+
         return collection_cursor.sort(sort_query);
     }
-
 }
 
 export {BaseModel};

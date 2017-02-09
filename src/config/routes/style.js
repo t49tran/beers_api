@@ -4,19 +4,14 @@
 import Router from 'koa-router';
 import {StyleController} from "../../controllers/StyleController.js";
 
-
 let route__styles = new Router();
 
-route__styles.get('/:id', (ctx, next) => {
-    let style_controller = new StyleController(ctx,next);
+let style_controller = new StyleController;
 
-    style_controller.single();
-});
+route__styles.get('/all',style_controller.all);
 
-route__styles.get('/categories/:id', (ctx, next) => {
-    let style_controller = new StyleController(ctx,next);
+route__styles.get('/categories/:category_id', style_controller.categories);
 
-    style_controller.category();
-});
+route__styles.get('/:id', style_controller.single);
 
 export default route__styles;

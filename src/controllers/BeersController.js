@@ -1,7 +1,7 @@
-import {DefaultController} from './DefaultController.js';
+import {BaseController} from '../core/BaseController.js';
 import {BeersModel} from '../models/Beers.js';
 
-class BeersController extends DefaultController{
+class BeersController extends BaseController{
     async single(ctx){
         try {
             let beersModel = new BeersModel();
@@ -16,7 +16,9 @@ class BeersController extends DefaultController{
     async category(ctx){
         try{
             let beersModel = new BeersModel();
-            ctx.body = await beersModel.findByCategory(ctx.params.category_id);
+            let options = ctx.request.query;
+
+            ctx.body = await beersModel.findByCategory(ctx.params.category_id,options);
         } catch(err) {
             ctx.body = { message: err.message };
             ctx.status = err.status || 500;
@@ -38,7 +40,9 @@ class BeersController extends DefaultController{
     async brewery(ctx){
         try{
             let beersModel = new BeersModel();
-            ctx.body = await beersModel.findByBrewery(ctx.params.brewery_id);
+            let options = ctx.request.query;
+
+            ctx.body = await beersModel.findByBrewery(ctx.params.brewery_id,options);
         } catch(err) {
             ctx.body = { message : err.message};
             ctx.status = err.status || 500;
