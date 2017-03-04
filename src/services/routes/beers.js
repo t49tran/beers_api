@@ -15,4 +15,6 @@ route__beers.get('/category/:category_id', beers_controller.category);
 
 route__beers.get('/brewery/:brewery_id', beers_controller.brewery);
 
+route__beers.get('/country/:country_code', beers_controller.country);
+
 export default route__beers;

@@ -1,45 +1,39 @@
-import {BaseController} from '../core/BaseController.js';
-import {StylesModel} from '../models/Styles.js';
 import _ from 'lodash';
 
-class StyleController extends BaseController{
-    async single(ctx){
-        try {
-            let styles_model = new StylesModel();
-            ctx.body = await styles_model.findOne({id: parseInt(ctx.params.id)});
-        } catch(err) {
-            ctx.body = {message: err.message};
-            ctx.status = 500 || err.status;
-        }
+class StyleController {
+  async single(ctx) {
+    try {
+      ctx.body = await ctx.styles_manager.findOne({id: parseInt(ctx.params.id)});
+    } catch (err) {
+      ctx.body = {message: err.message};
+      ctx.status = 500 || err.status;
     }
+  }
 
-    async categories(ctx){
-        try {
-            let styles_model = new StylesModel();
-            let options = ctx.request.query;
+  async categories(ctx) {
+    try {
+      let options = ctx.request.query;
 
-            ctx.body = await styles_model.findByCategory(ctx.params.category_id,options);
-        } catch(err) {
-            ctx.body = {message: err.message};
-            ctx.status = 500 || err.status;
-        }
+      ctx.body = await ctx.styles_manager.findByCategory(ctx.params.category_id, options);
+    } catch (err) {
+      ctx.body = {message: err.message};
+      ctx.status = 500 || err.status;
     }
+  }
 
-    async all(ctx){
-        try {
-            let options = _.isEmpty(ctx.request.query) ? {
-                sort_order: 'ASC',
-                sort: 'name'
-            } : ctx.request.query;
+  async all(ctx) {
+    try {
+      let options = _.isEmpty(ctx.request.query) ? {
+        sort_order: 'ASC',
+        sort: 'name'
+      } : ctx.request.query;
 
-            let styles_model = new StylesModel();
-
-            ctx.body = await styles_model.findAll(options);
-        } catch(err) {
-            ctx.body = { message: err.message};
-            ctx.status = 500 || err.status;
-        }
+      ctx.body = await ctx.styles_manager.findAll(options);
+    } catch (err) {
+      ctx.body = {message: err.message};
+      ctx.status = 500 || err.status;
     }
+  }
 }
 
 export {StyleController};

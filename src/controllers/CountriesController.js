@@ -1,8 +1,7 @@
-import {BaseController} from '../core/BaseController';
 import Promise from 'bluebird';
 import _ from 'lodash';
 
-class CountriesController extends BaseController{
+class CountriesController {
     async all(ctx){
         try{
             let fs = Promise.promisifyAll(require('fs'));

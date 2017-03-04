@@ -1,16 +1,30 @@
-import {BaseController} from '../core/BaseController.js';
-import {BeersModel} from '../models/Beers.js';
-import {StylesModel} from '../models/Styles.js';
-import {CategoriesModel} from '../models/Categories.js';
-import {BreweriesModel} from '../models/Breweries.js';
+import _ from 'lodash';
 
-class SearchController extends BaseController{
+class SearchController {
     async beers(ctx){
         try{
-            let beers_model = new BeersModel();
             let options = ctx.request.query;
+            let projections = {};
 
-            ctx.body = await beers_model.search(ctx.request.query.key,options);
+            if(options.style && !isNaN(options.style)){
+                projections = _.extend(projections, {
+                    "style.id": parseInt(options.style)
+                })
+            }
+
+            if(options.cat && !isNaN(options.cat)){
+                projections = _.extend(projections, {
+                    'style.categoryId': parseInt(options.cat)
+                })
+            }
+
+            if(options.country){
+                projections = _.extend(projections, {
+                    'country': options.country
+                });
+            }
+
+            ctx.body = await ctx.beers_manager.search(ctx.request.query.key, projections, options);
         } catch (err) {
             ctx.body = {
                 message : err.message
@@ -21,10 +35,8 @@ class SearchController extends BaseController{
 
     async styles(ctx){
         try {
-            let styles_model = new StylesModel();
             let options = ctx.request.query;
-
-            ctx.body = await styles_model.search(ctx.request.query.key,options);
+            ctx.body = await ctx.styles_manager.search(ctx.request.query.key, {}, options);
         } catch (err) {
             ctx.body = {
                 message: err.message
@@ -35,10 +47,8 @@ class SearchController extends BaseController{
 
     async categories(ctx){
         try {
-            let categories_model = new CategoriesModel();
             let options = ctx.request.query;
-
-            ctx.body = await categories_model.search(ctx.request.query.key,options);
+            ctx.body = await ctx.categories_manager.search(ctx.request.query.key, {}, options);
         } catch (err) {
             ctx.body = {
                 message : err.message
@@ -49,10 +59,8 @@ class SearchController extends BaseController{
 
     async breweries(ctx){
         try {
-            let breweries_model = new BreweriesModel();
             let options = ctx.request.query;
-
-            ctx.body = await breweries_model.search(ctx.request.query.key,options);
+            ctx.body = await ctx.breweries_manager.search(ctx.request.query.key, {}, options);
         } catch (err) {
             ctx.body = {
                 message : err.message
