@@ -19,32 +19,32 @@ class MongoService {
    * Search function, a specific implementation of general findBy function with a search_str
    */
   async search(collection_name, search_str, projection = null, options = null) {
-    if (collection_name === '' || collection_name === 'undefined')
+    if (collection_name === '' || collection_name === undefined)
       return Promise.reject({'message': 'No collection defined'});
 
-    projection = _.assign({}, {
-      '$text': {
-        '$search': search_str
-      }
-    }, projection);
+    if (search_str !== undefined && search_str !== '') {
+      projection = _.assign({}, {
+        '$text': {
+          '$search': search_str
+        }
+      }, projection);
+    }
 
     return this.findBy(collection_name, projection, options);
   }
 
   async findOne(collection_name, projection) {
-    if (collection_name === '' || collection_name === 'undefined') {
+    if (collection_name === '' || collection_name === undefined)
       return Promise.reject({'message': 'No collection defined'});
-    }
-    console.log(this.mongoConnection.collection(collection_name).findOne(projection));
+
     return this.mongoConnection.collection(collection_name).findOne(projection);
   }
 
   async findBy(collection_name, projection, options = null) {
     options = options || {};
 
-    if (collection_name === '' || collection_name === 'undefined') {
+    if (collection_name === '' || collection_name === undefined)
       return Promise.reject({'message': 'No collection defined'});
-    }
 
     const collection = this.mongoConnection.collection(collection_name);
 
@@ -55,7 +55,6 @@ class MongoService {
   }
 
   sort(collection_cursor, options) {
-
     // Default sorting order as ascending
     options.sort_order = options.sort_order || 'ASC';
 
@@ -70,7 +69,6 @@ class MongoService {
   }
 
   pagination(collection_cursor, options) {
-
     const page = options.page || 1;
     const per_page = options.per_page || 20;
     const skip = (page - 1) * per_page;

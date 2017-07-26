@@ -40,9 +40,9 @@ class BaseEntityManager {
 
       let cached_results = await this.getCachedResults(cache_key);
 
-      if(!cached_results) {
+      if (!cached_results) {
         cached_results = await this.mongoService.search(this.collection_name, search_str, projections, options);
-        await this.writeCachedResults(cache_key, cached_results);
+        this.writeCachedResults(cache_key, cached_results);
       } else {
         cached_results = JSON.parse(cached_results);
       }

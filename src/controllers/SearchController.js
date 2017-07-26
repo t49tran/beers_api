@@ -6,19 +6,19 @@ class SearchController {
             let options = ctx.request.query;
             let projections = {};
 
-            if(options.style && !isNaN(options.style)){
+            if(options.style && !isNaN(options.style)) {
                 projections = _.extend(projections, {
                     "style.id": parseInt(options.style)
                 })
             }
 
-            if(options.cat && !isNaN(options.cat)){
+            if(options.cat && !isNaN(options.cat)) {
                 projections = _.extend(projections, {
                     'style.categoryId': parseInt(options.cat)
                 })
             }
 
-            if(options.country){
+            if(options.country) {
                 projections = _.extend(projections, {
                     'country': options.country
                 });

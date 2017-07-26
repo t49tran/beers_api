@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel index.js -o app.js"
+    "build": "babel index.js -o app.js",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",

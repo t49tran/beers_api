@@ -17,7 +17,7 @@ var app = new Koa();
 app.use(koaJson());
 app.use(cors());
 app.use(mongo(config.database.mongo));
-app.use(redis(config.cache.redis));
+//app.use(redis(config.cache.redis));
 app.use(mongoService());
 app.use(entityManager());
 

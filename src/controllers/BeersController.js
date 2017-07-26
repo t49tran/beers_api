@@ -1,8 +1,7 @@
 class BeersController {
   async single(ctx, next) {
     try {
-      let beer = await ctx.beers_manager.findOne(ctx.params.id);
-      ctx.body = beer;
+      ctx.body = await ctx.beers_manager.findOne({id: ctx.params.id});
     } catch (err) {
       ctx.body = {message: err.message};
       ctx.status = err.status || 500;

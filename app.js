@@ -46,7 +46,7 @@ var app = new _koa2.default();
 app.use((0, _koaJson2.default)());
 app.use((0, _kcors2.default)());
 app.use((0, _koaMongo2.default)(_config2.default.database.mongo));
-app.use((0, _cache2.default)(_config2.default.cache.redis));
+//app.use(redis(config.cache.redis));
 app.use((0, _mongo2.default)());
 app.use((0, _entity_manager2.default)());
 

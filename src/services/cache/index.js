@@ -25,7 +25,7 @@ const redis = function (redis_options) {
   let redis_retries = 0;
   const redisPool = genericPool.createPool({
     create: () => {
-      return new Promise(function (resolve, reject) {
+      return new Promise(function (resolve) {
         let client = Redis.createClient(redis_options);
         client.on('error', () => {
           debug('Error connecting to redis server');
@@ -54,7 +54,6 @@ const redis = function (redis_options) {
         debug('Release one redis connection (min: %s, max: %s, poolSize: %s)', redis_options.min, redis_options.max, redisPool.size);
       })
       .catch(e => {
-
         if (ctx.redisClient) {
           redisPool.release(ctx.redisClient);
           debug('Release one redis connection (min: %s, max: %s, poolSize: %s)', redis_options.min, redis_options.max, redisPool.size);
