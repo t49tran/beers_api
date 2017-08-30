@@ -10,7 +10,7 @@ class BreweriesEntityManager extends BaseEntityManager {
     if (country_id === undefined || country_id === '')
       return Promise.reject({err: 'country id not found or is empty'});
 
-    let projection = {
+    const projection = {
       'country': country_id
     };
 

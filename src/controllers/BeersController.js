@@ -10,7 +10,7 @@ class BeersController {
 
   async category(ctx) {
     try {
-      let options = ctx.request.query;
+      const options = ctx.request.query;
       ctx.body = await ctx.beers_manager.findByCategory(ctx.params.category_id, options);
     } catch (err) {
       ctx.body = {message: err.message};
@@ -49,4 +49,4 @@ class BeersController {
   }
 }
 
-export {BeersController};
+export default BeersController;

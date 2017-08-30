@@ -2,19 +2,19 @@
  * Setting up routes
  * */
 import Router from 'koa-router';
-import {BeersController} from '../../controllers/BeersController.js';
+import BeersController from '../../controllers/BeersController.js';
 
-let route__beers = new Router();
-let beers_controller = new BeersController;
+const route_beers = new Router();
+const beers_controller = new BeersController();
 
-route__beers.get('/:id',beers_controller.single);
+route_beers.get('/:id', beers_controller.single);
 
-route__beers.get('/style/:style_id',beers_controller.style);
+route_beers.get('/style/:style_id', beers_controller.style);
 
-route__beers.get('/category/:category_id', beers_controller.category);
+route_beers.get('/category/:category_id', beers_controller.category);
 
-route__beers.get('/brewery/:brewery_id', beers_controller.brewery);
+route_beers.get('/brewery/:brewery_id', beers_controller.brewery);
 
-route__beers.get('/country/:country_code', beers_controller.country);
+route_beers.get('/country/:country_code', beers_controller.country);
 
-export default route__beers;
+export default route_beers;

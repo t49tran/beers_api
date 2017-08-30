@@ -2,21 +2,21 @@ import Promise from 'bluebird';
 import BaseEntityManager from './BaseEntityManager';
 
 class BeersEntityManager extends BaseEntityManager {
-    constructor(mongoService, redisService) {
-        super(mongoService, redisService);
-        this.collection_name = 'beers';
-    }
+  constructor(mongoService, redisService) {
+    super(mongoService, redisService);
+    this.collection_name = 'beers';
+  }
 
-    async findByCategory(category_id, options) {
-        if(category_id === undefined || category_id === '')
-            return Promise.reject({err:'category id not found or is empty'});
+  async findByCategory(category_id, options) {
+    if(category_id === undefined || category_id === '')
+      return Promise.reject({err:'category id not found or is empty'});
 
-        let projection = {
-            'style.categoryId': parseInt(category_id)
-        };
+      let projection = {
+          'style.categoryId': parseInt(category_id)
+      };
 
-        return this.findBy(projection, options);
-    }
+      return this.findBy(projection, options);
+  }
 
     async findByStyle(style_id,options) {
         if(style_id === undefined || style_id === '')

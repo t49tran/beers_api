@@ -69,6 +69,9 @@ class MongoService {
   }
 
   pagination(collection_cursor, options) {
+    if (options.page === undefined || options.per_page === undefined) {
+      return collection_cursor;
+    }
     const page = options.page || 1;
     const per_page = options.per_page || 20;
     const skip = (page - 1) * per_page;

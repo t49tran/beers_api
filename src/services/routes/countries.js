@@ -1,9 +1,9 @@
 import Router from 'koa-router';
-import {CountriesController} from '../../controllers/CountriesController';
+import CountriesController from '../../controllers/CountriesController';
 
-const route__countries = new Router();
-let countries_controller = new CountriesController();
+const route_countries = new Router();
+const countries_controller = new CountriesController();
 
-route__countries.get('/all',countries_controller.all);
+route_countries.get('/all', countries_controller.all);
 
-export default route__countries;
+export default route_countries;

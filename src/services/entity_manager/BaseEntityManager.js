@@ -1,4 +1,4 @@
-import Promise from "bluebird";
+import Promise from 'bluebird';
 
 class BaseEntityManager {
   constructor(mongo_service, cache_service) {

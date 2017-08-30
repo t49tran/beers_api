@@ -3,12 +3,12 @@ import _ from "lodash";
 class BreweryController {
   async all(ctx) {
     try {
-      let options = _.isEmpty(ctx.request.query) ? {
+      const options = _.isEmpty(ctx.request.query) ? {
         sort_order: 'ASC',
         sort: 'name'
       } : ctx.request.query;
 
-      let breweries = await ctx.breweries_manager.findAll(options);
+      const breweries = await ctx.breweries_manager.findAll(options);
       if (breweries === undefined || breweries == null) {
         ctx.body = {
           message: 'No breweries found',
